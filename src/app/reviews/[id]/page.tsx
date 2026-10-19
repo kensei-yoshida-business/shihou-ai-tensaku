@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { examTitle } from "@/lib/labels";
+import { SourceNote } from "@/components/SourceNote";
 import { requireUserId } from "@/lib/session";
 import { GradingResultSchema } from "@/types/review";
 import { CriteriaSection } from "@/components/review/CriteriaSection";
@@ -75,15 +76,16 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
               <summary className="cursor-pointer px-4 py-3 text-sm font-medium">{MATERIAL_LABEL[m.kind] ?? m.kind}</summary>
               <div className="border-t border-line px-4 py-4">
                 <p className="prose-answer text-sm">{m.text}</p>
-                <a href={m.sourceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-block text-xs text-muted underline">
-                  出典: 法務省ウェブサイト
-                </a>
+                <SourceNote url={m.sourceUrl} className="mt-3" />
               </div>
             </details>
           ))}
         <details className="rounded-xl border border-line bg-white">
           <summary className="cursor-pointer px-4 py-3 text-sm font-medium">問題文</summary>
-          <p className="prose-answer border-t border-line px-4 py-4 text-sm">{q.problemText}</p>
+          <div className="border-t border-line px-4 py-4">
+            <p className="prose-answer text-sm">{q.problemText}</p>
+            {q.sourceUrl && <SourceNote url={q.sourceUrl} className="mt-3" />}
+          </div>
         </details>
         <details className="rounded-xl border border-line bg-white">
           <summary className="cursor-pointer px-4 py-3 text-sm font-medium">提出した答案</summary>

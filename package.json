@@ -11,6 +11,10 @@
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
     "db:seed:dev": "SEED_SAMPLES=1 tsx prisma/seed.ts",
+    "moj:crawl": "NODE_USE_ENV_PROXY=1 tsx scripts/moj/crawl.ts",
+    "moj:fetch": "NODE_USE_ENV_PROXY=1 tsx scripts/moj/fetch.ts",
+    "moj:build": "tsx scripts/moj/build.ts",
+    "moj:publish": "tsx scripts/moj/publish.ts",
     "tanto:explain": "tsx scripts/generate-tanto-explanations.ts",
     "stripe:setup": "tsx scripts/stripe-setup.ts",
     "postinstall": "prisma generate",
@@ -33,6 +37,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "pdfjs-dist": "5.4.296",
     "prisma": "6.19.3",
     "tsx": "^4.20.0",
     "typescript": "^5.9.0"

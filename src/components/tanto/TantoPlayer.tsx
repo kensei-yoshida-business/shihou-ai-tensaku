@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { examTitle } from "@/lib/labels";
+import { SourceNote } from "@/components/SourceNote";
 
 type Statement = {
   id: string;
@@ -11,6 +12,7 @@ type Statement = {
   question: {
     number: number;
     subjectLabel: string;
+    stem: string;
     topicTags: string[];
     exam: { examType: string; year: number; eraLabel: string };
   };
@@ -41,6 +43,9 @@ type State =
   | { kind: "error"; message: string };
 
 const mark = (b: boolean) => (b ? "○" : "×");
+
+/** 柱書から解答欄の案内（「（解答欄は、［№１］）」など）を除く。一問一答では使わないため */
+const stemForDisplay = (stem: string) => stem.replace(/[（(]解答欄は[^）)]*[）)]/g, "").trim();
 
 export function TantoPlayer({ query }: { query: string }) {
   const [state, setState] = useState<State>({ kind: "loading" });
@@ -162,6 +167,13 @@ export function TantoPlayer({ query }: { query: string }) {
           </span>
           {q.topicTags.length > 0 && <span className="ml-3 text-xs text-muted">分野: {q.topicTags.join("・")}</span>}
         </header>
+        {/* 肢の多くは柱書の事例や前提（「判例の趣旨に照らし」など）がないと正誤を決められないので、回答前から見せる */}
+        {q.stem && (
+          <details className="border-b border-line" open={stemForDisplay(q.stem).length <= 200}>
+            <summary className="cursor-pointer px-6 py-2 text-xs text-muted">柱書（問題の前提）</summary>
+            <p className="prose-answer px-6 pb-4 text-sm text-muted">{stemForDisplay(q.stem)}</p>
+          </details>
+        )}
         <p className="prose-answer px-6 py-8 text-lg">{s.text}</p>
 
         {state.kind === "question" ? (
@@ -219,12 +231,8 @@ export function TantoPlayer({ query }: { query: string }) {
                     </li>
                   ))}
                 </ul>
-                <p className="text-xs text-muted">
-                  正解: {state.r.originalQuestion.officialAnswer} ／{" "}
-                  <a href={state.r.originalQuestion.sourceUrl} target="_blank" rel="noreferrer" className="underline">
-                    出典
-                  </a>
-                </p>
+                <p className="text-xs text-muted">正解: {state.r.originalQuestion.officialAnswer}</p>
+                <SourceNote url={state.r.originalQuestion.sourceUrl} />
               </div>
             </details>
 

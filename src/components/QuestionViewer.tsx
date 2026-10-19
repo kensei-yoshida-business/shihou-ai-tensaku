@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SourceNote } from "./SourceNote";
 
 type Detail = {
   problemText: string;
@@ -41,14 +42,7 @@ export function QuestionViewer({ questionId }: { questionId: string }) {
       </summary>
       <div className="max-h-96 overflow-y-auto border-t border-line px-4 py-4">
         <p className="prose-answer text-sm">{detail.problemText}</p>
-        {detail.sourceUrl && (
-          <p className="mt-4 text-xs text-muted">
-            出典:{" "}
-            <a href={detail.sourceUrl} target="_blank" rel="noreferrer" className="underline">
-              法務省ウェブサイト
-            </a>
-          </p>
-        )}
+        {detail.sourceUrl && <SourceNote url={detail.sourceUrl} className="mt-4" />}
       </div>
     </details>
   );

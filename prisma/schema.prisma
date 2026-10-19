@@ -92,6 +92,7 @@ model Question {
   subjectLabel String // "憲法"
   sectionLabel String // "公法系科目第1問"
   problemText  String
+  sourceUrl    String? // 問題文の PDF（法務省ウェブサイト）
   pageLimit    Int?
   timeLimitMin Int?
   published    Boolean            @default(false)

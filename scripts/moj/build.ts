@@ -18,11 +18,17 @@ const DATA = join(__dirname, "..", "..", "data");
 /** 画像だけでテキストのない正解表を人が書き起こしたもの。PDF の URL → { No: 正解 } */
 const ANSWER_OVERRIDES = join(DATA, "moj", "answer-overrides.json");
 
-function writeJson(path: string, value: object) {
-  // 人が確認済み（_reviewed: true）のファイルは上書きしない
+type Publishable = { published?: boolean; questions?: { number: number; published: boolean }[] };
+
+function writeJson(path: string, value: Publishable) {
   if (existsSync(path)) {
-    const prev = JSON.parse(readFileSync(path, "utf8"));
+    const prev: Publishable & { _reviewed?: boolean } = JSON.parse(readFileSync(path, "utf8"));
+    // 人が確認済み（_reviewed: true）のファイルは上書きしない
     if (prev._reviewed) return "kept";
+    // 公開済みのものは公開のまま（論文はファイル単位、短答は問題単位）
+    if (prev.published) value.published = true;
+    const wasPublished = new Set(prev.questions?.filter((q) => q.published).map((q) => q.number));
+    for (const q of value.questions ?? []) if (wasPublished.has(q.number)) q.published = true;
   }
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, JSON.stringify(value, null, 2) + "\n");

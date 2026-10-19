@@ -9,7 +9,7 @@
   "questions": [
     {
       "number": 1,
-      "published": false,
+      "published": true,
       "stem": "次の１から５までの各記述を判例の立場に従って検討した場合，正しいものはどれか。（解答欄は，［No.１］）",
       "topicTags": [],
       "statements": [
@@ -40,7 +40,7 @@
     },
     {
       "number": 2,
-      "published": false,
+      "published": true,
       "stem": "横領の罪に関する次の１から５までの各記述を判例の立場に従って検討した場合，誤っているものを２個選びなさい。（解答欄は，［No.２］，［No.３］順不同）",
       "topicTags": [
         "横領の罪"
@@ -79,7 +79,7 @@
     },
     {
       "number": 4,
-      "published": false,
+      "published": true,
       "stem": "遺棄の罪に関する次の１から５までの各記述を判例の立場に従って検討した場合，正しいものを２個選びなさい。（解答欄は，［No.５］，[No.６]順不同）",
       "topicTags": [
         "遺棄の罪"
@@ -118,7 +118,7 @@
     },
     {
       "number": 6,
-      "published": false,
+      "published": true,
       "stem": "次の１から５までの各記述を判例の立場に従って検討した場合，誤っているものはどれか。（解答欄は，[No.８]）",
       "topicTags": [],
       "statements": [
@@ -149,7 +149,7 @@
     },
     {
       "number": 8,
-      "published": false,
+      "published": true,
       "stem": "公務執行妨害罪に関する次のアからオまでの各記述を判例の立場に従って検討し，正しい場合には１を，誤っている場合には２を選びなさい。（解答欄は，アからオの順に［No.10］から［No.14］）",
       "topicTags": [
         "公務執行妨害罪"
@@ -188,7 +188,7 @@
     },
     {
       "number": 10,
-      "published": false,
+      "published": true,
       "stem": "親族間の犯罪に関する特例について次の１から５までの各記述を判例の立場に従って検討した場合，誤っているものはどれか。（解答欄は，[No.16]）",
       "topicTags": [],
       "statements": [
@@ -219,7 +219,7 @@
     },
     {
       "number": 11,
-      "published": false,
+      "published": true,
       "stem": "次のアからオまでの各記述を判例の立場に従って検討し，正しい場合には１を，誤っている場合には２を選びなさい。（解答欄は，アからオの順に［No.17］から［No.21］）",
       "topicTags": [],
       "statements": [
@@ -256,7 +256,7 @@
     },
     {
       "number": 12,
-      "published": false,
+      "published": true,
       "stem": "業務妨害罪に関する次の１から５までの各記述を判例の立場に従って検討した場合，誤っているものはどれか。（解答欄は，[No.22]）",
       "topicTags": [
         "業務妨害罪"
@@ -289,7 +289,7 @@
     },
     {
       "number": 14,
-      "published": false,
+      "published": true,
       "stem": "放火罪に関する次の１から５までの各記述を判例の立場に従って検討した場合，正しいものを２個選びなさい。（解答欄は，［No.24］，［No.25］順不同）",
       "topicTags": [
         "放火罪"
@@ -328,7 +328,7 @@
     },
     {
       "number": 15,
-      "published": false,
+      "published": true,
       "stem": "次の１から５までの各記述を判例の立場に従って検討した場合，誤っているものを２個選びなさい。（解答欄は，［No.26］，［No.27］順不同）",
       "topicTags": [],
       "statements": [
@@ -365,7 +365,7 @@
     },
     {
       "number": 16,
-      "published": false,
+      "published": true,
       "stem": "名誉毀損罪及び侮辱罪に関する次の１から５までの各記述を判例の立場に従って検討した場合，正しいものはどれか。（解答欄は，［No.28］）",
       "topicTags": [
         "名誉毀損罪及び侮辱罪"

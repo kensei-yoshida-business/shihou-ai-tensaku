@@ -12,6 +12,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
       subjectLabel: true,
       sectionLabel: true,
       problemText: true,
+      sourceUrl: true,
       pageLimit: true,
       timeLimitMin: true,
       exam: { select: { examType: true, year: true, eraLabel: true } },
@@ -20,5 +21,5 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   });
   if (!question) return jsonError(404, "not_found");
   const { materials, ...rest } = question;
-  return NextResponse.json({ question: { ...rest, sourceUrl: materials[0]?.sourceUrl ?? null } });
+  return NextResponse.json({ question: { ...rest, sourceUrl: rest.sourceUrl ?? materials[0]?.sourceUrl ?? null } });
 }

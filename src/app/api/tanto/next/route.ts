@@ -33,6 +33,7 @@ export async function GET(req: Request) {
           id: true,
           number: true,
           subjectLabel: true,
+          stem: true,
           topicTags: true,
           exam: { select: { examType: true, year: true, eraLabel: true } },
         },

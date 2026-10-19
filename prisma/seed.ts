@@ -27,6 +27,7 @@ const EssayFile = ExamMeta.extend({
   timeLimitMin: z.number().int().optional(),
   published: z.boolean().default(false),
   problemText: z.string().min(1),
+  sourceUrl: z.string().url().optional(),
   materials: z.array(
     z.object({
       kind: z.enum(["intent", "impression", "grading_policy"]),
@@ -78,6 +79,7 @@ async function seedEssay(file: string) {
     subjectLabel: d.subjectLabel,
     sectionLabel: d.sectionLabel,
     problemText: d.problemText,
+    sourceUrl: d.sourceUrl,
     pageLimit: d.pageLimit,
     timeLimitMin: d.timeLimitMin,
     published: d.published,

@@ -1,0 +1,43 @@
+{
+  "name": "shihou-ai-tensaku",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:seed:dev": "SEED_SAMPLES=1 tsx prisma/seed.ts",
+    "tanto:explain": "tsx scripts/generate-tanto-explanations.ts",
+    "stripe:setup": "tsx scripts/stripe-setup.ts",
+    "postinstall": "prisma generate",
+    "db:migrate:deploy": "prisma migrate deploy"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.135.0",
+    "@prisma/client": "6.19.3",
+    "@tailwindcss/postcss": "^4.3.3",
+    "next": "15.5.28",
+    "next-auth": "5.0.0-beta.32",
+    "pdf-parse": "^2.4.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "stripe": "^23.0.0",
+    "tailwindcss": "^4.3.3",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "prisma": "6.19.3",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}

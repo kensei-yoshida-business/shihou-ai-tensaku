@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, system-ui, sans-serif;
+  --font-serif: "Hiragino Mincho ProN", "Noto Serif JP", "Yu Mincho", serif;
+  --color-ink: #1c2430;
+  --color-muted: #5b6676;
+  --color-line: #e3e6eb;
+  --color-paper: #fbfaf7;
+  --color-brand: #1f3a5f;
+  --color-brand-soft: #e8eef6;
+  --color-redpen: #c62828;
+  --color-ok: #2e7d32;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* 答案・問題文は縦長の文章なので明朝で読みやすく */
+.prose-answer {
+  font-family: var(--font-serif);
+  line-height: 1.9;
+  white-space: pre-wrap;
+}

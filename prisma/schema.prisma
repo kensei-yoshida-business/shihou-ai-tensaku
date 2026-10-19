@@ -1,0 +1,182 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // アプリ用（本番はプーリング接続の URL）
+  directUrl = env("DIRECT_URL") // マイグレーション用（プーリングを通さない直接接続の URL）
+}
+
+// ---------- 会員・決済 ----------
+
+model User {
+  id               String          @id @default(cuid())
+  email            String          @unique
+  name             String?
+  stripeCustomerId String?         @unique
+  createdAt        DateTime        @default(now())
+  ledger           CreditLedger[]
+  subscription     Subscription?
+  reviews          Review[]
+  tantoAttempts    TantoAttempt[]
+  pdfExtractions   PdfExtraction[]
+}
+
+// チケットの増減台帳（残数 = SUM(delta)）
+model CreditLedger {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+  delta           Int // 購入 +n / 消費 -1 / 失敗・差し戻し時の返却 +1 / Stripe での返金・チャージバック -n
+  reason          String // "purchase" | "consume" | "refund_on_error" | "refund_on_mismatch" | "stripe_refund" | "stripe_dispute"
+  stripeRef       String?  @unique // Checkout Session id（購入の冪等キー）
+  paymentIntentId String? // 購入と、その返金・チャージバックによる取り消しを結びつける
+  reviewId        String?
+  createdAt       DateTime @default(now())
+
+  @@index([userId])
+  @@index([paymentIntentId])
+}
+
+model Subscription {
+  id                   String   @id @default(cuid())
+  userId               String   @unique
+  user                 User     @relation(fields: [userId], references: [id])
+  stripeSubscriptionId String   @unique
+  status               String // active | past_due | canceled ...
+  plan                 String // "standard" | "unlimited"
+  monthlyQuota         Int? // unlimited は null
+  currentPeriodStart   DateTime
+  currentPeriodEnd     DateTime
+}
+
+// 答案PDFの抽出履歴（1日あたりの回数制限に使う）
+model PdfExtraction {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  method    String // "text-layer" | "claude-ocr"
+  pages     Int
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model StripeEvent {
+  id        String   @id // evt_...
+  type      String
+  createdAt DateTime @default(now())
+}
+
+// ---------- 過去問（法務省公表資料のみ） ----------
+
+// 試験回（例: 令和7年司法試験）。論文・短答で共有
+model Exam {
+  id             String          @id // "shihou-2025" | "yobi-2025"
+  examType       String // "shihou" | "yobi"
+  year           Int
+  eraLabel       String // "令和7年"
+  questions      Question[]
+  tantoQuestions TantoQuestion[]
+
+  @@unique([examType, year])
+}
+
+// 論文式 1問 = 1科目
+model Question {
+  id           String             @id // "shihou-2025-kenpo"
+  examId       String
+  exam         Exam               @relation(fields: [examId], references: [id])
+  subject      String // "kenpo" | "gyosei" | "minpo" ...
+  subjectLabel String // "憲法"
+  sectionLabel String // "公法系科目第1問"
+  problemText  String
+  pageLimit    Int?
+  timeLimitMin Int?
+  published    Boolean            @default(false)
+  materials    QuestionMaterial[]
+  reviews      Review[]
+
+  @@unique([examId, subject])
+}
+
+// 出題趣旨・採点実感など採点基準となる公表資料
+model QuestionMaterial {
+  id         String   @id @default(cuid())
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id])
+  kind       String // "intent" | "impression" | "grading_policy"
+  text       String
+  sourceUrl  String
+  fetchedAt  DateTime
+
+  @@unique([questionId, kind])
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id])
+  answerText String
+  source     String // "text" | "pdf"
+  status     String // "running" | "done" | "error" | "rejected"
+  result     Json?
+  paidBy     String? // "ticket" | "subscription"
+  model      String?
+  usage      Json? // 原価計測用のトークン数
+  createdAt  DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
+// ---------- 短答式 一問一答 ----------
+
+model TantoQuestion {
+  id             String           @id // "shihou-2025-minpo-12"
+  examId         String
+  exam           Exam             @relation(fields: [examId], references: [id])
+  subject        String
+  subjectLabel   String
+  number         Int
+  stem           String // 柱書
+  format         String // "each_tf" | "combination" | "single_choice" | "other"
+  officialAnswer String // 正解表の記載
+  sourceUrl      String
+  topicTags      String[]
+  published      Boolean          @default(false)
+  statements     TantoStatement[]
+
+  @@unique([examId, subject, number])
+}
+
+// 一問一答の1問 = 原問題の1肢
+model TantoStatement {
+  id                String         @id // "shihou-2025-minpo-12-ア"
+  questionId        String
+  question          TantoQuestion  @relation(fields: [questionId], references: [id])
+  label             String // "ア"
+  text              String
+  isCorrect         Boolean // 正解表から導出した正誤
+  explanation       String?
+  explanationStatus String         @default("none") // "none" | "ai_generated" | "human_checked"
+  lawChangeNote     String? // 法改正で現行法と結論が異なりうる場合の注記
+  reportCount       Int            @default(0)
+  attempts          TantoAttempt[]
+}
+
+model TantoAttempt {
+  id          String         @id @default(cuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id])
+  statementId String
+  statement   TantoStatement @relation(fields: [statementId], references: [id])
+  answer      Boolean // ○ を選んだら true
+  correct     Boolean
+  createdAt   DateTime       @default(now())
+
+  @@index([userId, statementId])
+  @@index([userId, createdAt])
+}

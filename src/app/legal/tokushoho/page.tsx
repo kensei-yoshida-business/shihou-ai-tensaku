@@ -3,11 +3,14 @@ import { LegalPage, Todo } from "@/components/LegalPage";
 export const metadata = { title: "特定商取引法に基づく表記 | 司法試験 AI添削" };
 
 // Stripe の本番利用申請でも、このページの URL の登録を求められる
+// 所在地と電話番号は特商法11条ただし書により、請求があれば開示する旨の表示で省略している
+const ON_REQUEST = "請求があった場合には、遅滞なく電子メールにて開示いたします。";
+
 const ROWS: [string, React.ReactNode][] = [
   ["販売業者", <Todo key="a">氏名または法人名</Todo>],
   ["運営統括責任者", <Todo key="b">氏名</Todo>],
-  ["所在地", <Todo key="c">住所</Todo>],
-  ["電話番号", <Todo key="d">電話番号（受付時間も記載）</Todo>],
+  ["所在地", ON_REQUEST],
+  ["電話番号", ON_REQUEST],
   ["メールアドレス", <Todo key="e">問い合わせ用メールアドレス</Todo>],
   [
     "販売価格",

@@ -9,7 +9,7 @@
   "questions": [
     {
       "number": 2,
-      "published": false,
+      "published": true,
       "stem": "放火罪に関する次の１から５までの各記述を判例の立場に従って検討した場合，正しいものを２個選びなさい。（解答欄は，［№２］，［№３］順不同）",
       "topicTags": [
         "放火罪"
@@ -48,7 +48,7 @@
     },
     {
       "number": 4,
-      "published": false,
+      "published": true,
       "stem": "名誉毀損罪及び侮辱罪に関する次の１から５までの各記述を判例の立場に従って検討した場合，正しいものはどれか。（解答欄は，［№５］）",
       "topicTags": [
         "名誉毀損罪及び侮辱罪"
@@ -81,7 +81,7 @@
     },
     {
       "number": 6,
-      "published": false,
+      "published": true,
       "stem": "住居侵入等の罪に関する次の１から５までの各記述を判例の立場に従って検討した場合，正しいものはどれか。（解答欄は，［№７］）",
       "topicTags": [
         "住居侵入等の罪"
@@ -114,7 +114,7 @@
     },
     {
       "number": 7,
-      "published": false,
+      "published": true,
       "stem": "次の１から５までの各記述を判例の立場に従って検討した場合，誤っているものを２個選びなさい。（解答欄は，［№８］，［№９］順不同）",
       "topicTags": [],
       "statements": [
@@ -151,7 +151,7 @@
     },
     {
       "number": 8,
-      "published": false,
+      "published": true,
       "stem": "横領の罪に関する次の１から５までの各記述を判例の立場に従って検討した場合，誤っているものを２個選びなさい。（解答欄は，［№10］，［№11］順不同）",
       "topicTags": [
         "横領の罪"
@@ -190,7 +190,7 @@
     },
     {
       "number": 10,
-      "published": false,
+      "published": true,
       "stem": "盗品等に関する罪についての次のアからエまでの各記述を判例の立場に従って検討し,正しい場合には１を，誤っている場合には２を選びなさい。（解答欄は，アからエの順に［№13］から［№16］）",
       "topicTags": [
         "盗品等に関する罪"
@@ -224,7 +224,7 @@
     },
     {
       "number": 11,
-      "published": false,
+      "published": true,
       "stem": "次の１から５までの各記述を判例の立場に従って検討した場合，正しいものはどれか。（解答欄は，［№17］）",
       "topicTags": [],
       "statements": [
@@ -255,7 +255,7 @@
     },
     {
       "number": 12,
-      "published": false,
+      "published": true,
       "stem": "次の１から５までの各記述を判例の立場に従って検討した場合，誤っているものはどれか。（解答欄は，[№18]）",
       "topicTags": [],
       "statements": [

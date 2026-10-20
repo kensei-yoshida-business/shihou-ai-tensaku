@@ -9,7 +9,7 @@
   "questions": [
     {
       "number": 1,
-      "published": false,
+      "published": true,
       "stem": "正当防衛に関する次の１から５までの各記述を判例の立場に従って検討した場合，正しいものはどれか。（解答欄は，［No.１］）",
       "topicTags": [
         "正当防衛"
@@ -42,7 +42,7 @@
     },
     {
       "number": 4,
-      "published": false,
+      "published": true,
       "stem": "次の１から５までの各記述を判例の立場に従って検討し，正しいものを２個選びなさい。（解答欄は，［No.５］，［No.６］順不同）",
       "topicTags": [],
       "statements": [
@@ -79,7 +79,7 @@
     },
     {
       "number": 8,
-      "published": false,
+      "published": true,
       "stem": "公務執行妨害罪に関する次の１から５までの各記述を判例の立場に従って検討し，正しいものを２個選びなさい。（解答欄は，［No.12］，［No.13］順不同）",
       "topicTags": [
         "公務執行妨害罪"
@@ -118,7 +118,7 @@
     },
     {
       "number": 9,
-      "published": false,
+      "published": true,
       "stem": "次の１から５までの各記述を判例の立場に従って検討した場合，正しいものはどれか。（解答欄は，［No.14］）",
       "topicTags": [],
       "statements": [
@@ -149,7 +149,7 @@
     },
     {
       "number": 11,
-      "published": false,
+      "published": true,
       "stem": "次の１から５までの各記述を判例の立場に従って検討し，誤っているものを２個選びなさい。（解答欄は，［No.16］，［No.17］順不同）",
       "topicTags": [],
       "statements": [
@@ -186,7 +186,7 @@
     },
     {
       "number": 13,
-      "published": false,
+      "published": true,
       "stem": "次のアからオまでの各記述を判例の立場に従って検討し，正しい場合には１を，誤っている場合には２を選びなさい。（解答欄は，アからオの順に［No.20］から［No.24］）",
       "topicTags": [],
       "statements": [
